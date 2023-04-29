@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(express.static('public')); 
+app.use(express.static('public'));
 app.use('/uploads', express.static('images'));
 
 app.use((req, res, next) => {
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,5 +33,11 @@ const routeLogin = require('./routes/userRoutes.js');
 app.use('/api/user', routeLogin);
 const routerProperty = require('./routes/propertyRoutes.js');
 app.use('/api/property', routerProperty);
+const routeSource = require('./routes/sourceRoutes.js');
+app.use('/api/source', routeSource);
+const routeInteraction = require('./routes/interactionRoutes.js');
+app.use('/api/interaction', routeInteraction);
+const routeAction = require('./routes/actionRoutes.js');
+app.use('/api/action', routeAction);
 
 app.listen(PORT, () => console.log('server started'));

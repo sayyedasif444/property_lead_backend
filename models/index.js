@@ -30,6 +30,10 @@ db.sequelize = sequelize;
 db.propertys = require('./propertyModel.js')(sequelize, DataTypes);
 db.property_medias = require('./propertyImageModel.js')(sequelize, DataTypes);
 db.users = require('./usersModel.js')(sequelize, DataTypes);
+db.sources = require('./sourceModel.js')(sequelize, DataTypes);
+db.leads = require('./leadModel.js')(sequelize, DataTypes);
+db.interactions = require('./interactionModel.js')(sequelize, DataTypes);
+db.actions = require('./actionModel.js')(sequelize, DataTypes);
 
 db.sequelize
   .sync({ force: false })
