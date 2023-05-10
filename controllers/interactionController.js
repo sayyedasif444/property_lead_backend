@@ -11,7 +11,7 @@ const addInteraction = async (req, res) => {
       lead_id: req.body.lead_id,
       i_date: req.body.i_date,
       i_time: req.body.i_time,
-      user_id: req.body.user_id,
+      user_id: req.userId,
     };
     if (
       info.description === null ||
@@ -47,7 +47,7 @@ const editInteraction = async (req, res) => {
       description: req.body.description,
       i_date: req.body.i_date,
       i_date: req.body.i_time,
-      user_id: req.body.user_id,
+      user_id: req.userId,
     };
     let id = req.body.id;
     if (
@@ -102,6 +102,7 @@ const getLeadInteraction = async (req, res) => {
         'i_time',
         'createdAt',
         'updatedAt',
+        'lead_id',
       ],
       include: [{ model: User, attributes: ['id', 'first_name', 'last_name'] }],
       order: [['id', 'DESC']],

@@ -39,5 +39,7 @@ const routeInteraction = require('./routes/interactionRoutes.js');
 app.use('/api/interaction', routeInteraction);
 const routeAction = require('./routes/actionRoutes.js');
 app.use('/api/action', routeAction);
+const routeLead = require('./routes/leadRoutes.js');
+app.use('/api/lead', routeLead);
 
 app.listen(PORT, () => console.log('server started'));

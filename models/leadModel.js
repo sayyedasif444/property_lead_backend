@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
     },
+    assigned_id: {
+      type: DataTypes.INTEGER,
+    },
     country: {
       type: DataTypes.STRING,
     },

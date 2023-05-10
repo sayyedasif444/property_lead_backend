@@ -23,6 +23,7 @@ const addProperty = async (req, res) => {
       expected_price: req.body.expected_price,
       price_per_sqft: req.body.price_per_sqft,
       google_map_link: req.body.google_map_link,
+      source_name: req.body.source_name,
       user_id: req.userId,
       isActive: true,
     };
@@ -145,7 +146,10 @@ const getOneProperty = async (req, res) => {
 
       Property.hasMany(PropertyMedia, { foreignKey: 'property_id' });
       PropertyMedia.belongsTo(Property, { foreignKey: 'property_id' });
-      let property = await Property.findOne({include: [User, PropertyMedia], where: { id: id } });
+      let property = await Property.findOne({
+        include: [User, PropertyMedia],
+        where: { id: id },
+      });
       if (property === null) {
         res.status(200).json({
           statuscode: 400,
@@ -187,6 +191,7 @@ const updateProperty = async (req, res) => {
       expected_price: req.body.expected_price,
       price_per_sqft: req.body.price_per_sqft,
       google_map_link: req.body.google_map_link,
+      source_name: req.body.source_name,
       user_id: req.userId,
     };
     let id = req.body.id;

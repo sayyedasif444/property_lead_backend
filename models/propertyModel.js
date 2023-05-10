@@ -48,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
     google_map_link: {
       type: DataTypes.STRING,
     },
+    source_name: {
+      type: DataTypes.STRING,
+    },
     user_id: {
       type: DataTypes.INTEGER,
     },

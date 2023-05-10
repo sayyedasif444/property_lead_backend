@@ -11,7 +11,7 @@ const addAction = async (req, res) => {
       lead_id: req.body.lead_id,
       i_date: req.body.i_date,
       i_time: req.body.i_time,
-      user_id: req.body.user_id,
+      user_id: req.userId,
       assigned_id: req.body.assigned_id,
       isOpen: true,
     };
@@ -50,7 +50,7 @@ const editAction = async (req, res) => {
       description: req.body.description,
       i_date: req.body.i_date,
       i_date: req.body.i_time,
-      user_id: req.body.user_id,
+      user_id: req.userId,
       assigned_id: req.body.assigned_id,
     };
     let id = req.body.id;
@@ -109,6 +109,8 @@ const getLeadAction = async (req, res) => {
         'updatedAt',
         'isOpen',
         'assigned_id',
+        'user_id',
+        'lead_id',
       ],
       include: [
         {
@@ -151,6 +153,9 @@ const getUserAction = async (req, res) => {
         'createdAt',
         'updatedAt',
         'isOpen',
+        'assigned_id',
+        'user_id',
+        'lead_id',
       ],
       include: [
         {

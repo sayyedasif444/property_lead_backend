@@ -364,6 +364,7 @@ const emailPassword = async (req, res) => {
           }
         });
         var info = { password: pass };
+        console.log(info);
         info.password = await bcrypt.hash(String(pass), 10);
         await User.update(info, { where: { id: user.id } });
         res.status(200).json({
