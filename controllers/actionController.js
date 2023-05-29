@@ -49,7 +49,7 @@ const editAction = async (req, res) => {
     let info = {
       description: req.body.description,
       i_date: req.body.i_date,
-      i_date: req.body.i_time,
+      i_time: req.body.i_time,
       user_id: req.userId,
       assigned_id: req.body.assigned_id,
     };
@@ -73,6 +73,7 @@ const editAction = async (req, res) => {
           message: 'Invalid request!',
         });
       } else {
+        await Lead.update({ isCompleted: false }, { where: { id: id } });
         await Action.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
@@ -217,6 +218,7 @@ const updateActionStatus = async (req, res) => {
           message: 'Invalid request!',
         });
       } else {
+        await Lead.update({ isCompleted: false }, { where: { id: id } });
         await Action.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,

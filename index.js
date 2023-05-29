@@ -41,5 +41,7 @@ const routeAction = require('./routes/actionRoutes.js');
 app.use('/api/action', routeAction);
 const routeLead = require('./routes/leadRoutes.js');
 app.use('/api/lead', routeLead);
+const routeTask = require('./routes/taskRoutes.js');
+app.use('/api/task', routeTask);
 
 app.listen(PORT, () => console.log('server started'));

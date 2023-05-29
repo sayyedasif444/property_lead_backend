@@ -17,7 +17,7 @@ const addLeads = async (req, res) => {
       mobile_number: req.body.mobile_number,
       emailid: req.body.emailid,
       source_id: req.body.source_id,
-      assigned_id: req.body.assigned_id,
+      assigned_id: req.body.assigned_id === '' ? null : req.body.assigned_id,
       user_id: req.userId,
       country: req.body.country,
       state: req.body.state,
@@ -37,12 +37,22 @@ const addLeads = async (req, res) => {
         message: 'Invalid request!',
       });
     } else {
-      const lead = await Lead.create(info);
-      res.status(200).json({
-        statuscode: 200,
-        message: 'Lead added successfully!',
-        data: lead.id,
+      let leadzz = await Lead.findAll({
+        where: { mobile_number: info.mobile_number },
       });
+      if (leadzz.length > 0) {
+        res.status(200).json({
+          statuscode: 400,
+          message: 'Mobile number already registered!',
+        });
+      } else {
+        const lead = await Lead.create(info);
+        res.status(200).json({
+          statuscode: 200,
+          message: 'Lead added successfully!',
+          data: lead.id,
+        });
+      }
     }
   } catch (e) {
     console.log('Error', e);
@@ -206,7 +216,7 @@ const updateLeads = async (req, res) => {
       mobile_number: req.body.mobile_number,
       emailid: req.body.emailid,
       source_id: req.body.source_id,
-      assigned_id: req.body.assigned_id,
+      assigned_id: req.body.assigned_id === '' ? null : req.body.assigned_id,
       user_id: req.userId,
       country: req.body.country,
       state: req.body.state,
@@ -235,12 +245,22 @@ const updateLeads = async (req, res) => {
             message: 'Invalid request!',
           });
         } else {
-          await Lead.update(info, { where: { id: id } });
-          res.status(200).json({
-            statuscode: 200,
-            message: 'Lead updated successfully!',
-            data: id,
+          let leadzz = await Lead.findAll({
+            where: { mobile_number: info.mobile_number },
           });
+          if (leadzz.filter((ele) => ele.id !== id).length > 0) {
+            res.status(200).json({
+              statuscode: 400,
+              message: 'Mobile number already registered!',
+            });
+          } else {
+            await Lead.update(info, { where: { id: id } });
+            res.status(200).json({
+              statuscode: 200,
+              message: 'Lead updated successfully!',
+              data: id,
+            });
+          }
         }
       } else {
         res.status(200).json({

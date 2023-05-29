@@ -46,7 +46,7 @@ const editInteraction = async (req, res) => {
     let info = {
       description: req.body.description,
       i_date: req.body.i_date,
-      i_date: req.body.i_time,
+      i_time: req.body.i_time,
       user_id: req.userId,
     };
     let id = req.body.id;
@@ -68,6 +68,7 @@ const editInteraction = async (req, res) => {
           message: 'Invalid request!',
         });
       } else {
+        await Lead.update({ isCompleted: false }, { where: { id: id } });
         await Interaction.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
