@@ -8,6 +8,10 @@ var corsOptions = {
 
 const app = express();
 
+app.get('/', function (req, res) {
+  res.send('Testing');
+});
+
 const PORT = process.env.PORT || 5000;
 
 //middleware
@@ -43,5 +47,9 @@ const routeLead = require('./routes/leadRoutes.js');
 app.use('/api/lead', routeLead);
 const routeTask = require('./routes/taskRoutes.js');
 app.use('/api/task', routeTask);
+const routeMeeting = require('./routes/meetingRoutes.js');
+app.use('/api/meeting', routeMeeting);
+const accountManagement = require('./routes/accountRoutes.js');
+app.use('/api/account', accountManagement);
 
 app.listen(PORT, () => console.log('server started'));

@@ -35,6 +35,16 @@ db.leads = require('./leadModel.js')(sequelize, DataTypes);
 db.interactions = require('./interactionModel.js')(sequelize, DataTypes);
 db.actions = require('./actionModel.js')(sequelize, DataTypes);
 db.tasks = require('./taskModel.js')(sequelize, DataTypes);
+db.meetings = require('./meetingModel')(sequelize, DataTypes);
+db.commissions = require('./commissionModel')(sequelize, DataTypes);
+db.customers = require('./customerModel')(sequelize, DataTypes);
+db.expenseCategorys = require('./expenseCategoryModel')(sequelize, DataTypes);
+db.expenses = require('./expenseModel')(sequelize, DataTypes);
+db.investors = require('./investorModel')(sequelize, DataTypes);
+db.payments = require('./paymentModel')(sequelize, DataTypes);
+db.projectExpensess = require('./projectExpenses')(sequelize, DataTypes);
+db.projects = require('./projectModel')(sequelize, DataTypes);
+db.transactions = require('./transactionModel')(sequelize, DataTypes);
 
 db.sequelize
   .sync({ force: false })

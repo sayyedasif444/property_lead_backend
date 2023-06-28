@@ -47,14 +47,12 @@ const editInteraction = async (req, res) => {
       description: req.body.description,
       i_date: req.body.i_date,
       i_time: req.body.i_time,
-      user_id: req.userId,
     };
     let id = req.body.id;
     if (
       info.description === null ||
       info.i_date === null ||
-      info.i_date === null ||
-      info.user_id === null
+      info.i_date === null
     ) {
       res.status(200).json({
         statuscode: 400,

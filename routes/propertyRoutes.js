@@ -35,5 +35,6 @@ router.post(
 router.post('/property-by-id', auth, propertyController.getOneProperty);
 router.post('/delete-property', auth, propertyController.deleteProperty);
 router.post('/delete-file', auth, propertyController.deletePropertyFile);
+router.post('/download-file', auth, propertyController.download);
 
 module.exports = router;

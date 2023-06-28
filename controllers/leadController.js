@@ -217,7 +217,6 @@ const updateLeads = async (req, res) => {
       emailid: req.body.emailid,
       source_id: req.body.source_id,
       assigned_id: req.body.assigned_id === '' ? null : req.body.assigned_id,
-      user_id: req.userId,
       country: req.body.country,
       state: req.body.state,
       city: req.body.city,

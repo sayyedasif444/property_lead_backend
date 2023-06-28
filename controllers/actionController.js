@@ -13,6 +13,7 @@ const addAction = async (req, res) => {
       i_time: req.body.i_time,
       user_id: req.userId,
       assigned_id: req.body.assigned_id,
+      isArrival: req.body.isArrival,
       isOpen: true,
     };
     if (
@@ -21,6 +22,7 @@ const addAction = async (req, res) => {
       info.i_date === null ||
       info.i_time === null ||
       info.user_id === null ||
+      info.isArrival === null ||
       info.assigned_id === null
     ) {
       res.status(200).json({
@@ -50,15 +52,15 @@ const editAction = async (req, res) => {
       description: req.body.description,
       i_date: req.body.i_date,
       i_time: req.body.i_time,
-      user_id: req.userId,
       assigned_id: req.body.assigned_id,
+      isArrival: req.body.isArrival,
     };
     let id = req.body.id;
     if (
       info.description === null ||
       info.i_date === null ||
       info.i_date === null ||
-      info.user_id === null ||
+      info.isArrival === null ||
       info.assigned_id === null
     ) {
       res.status(200).json({
@@ -112,6 +114,7 @@ const getLeadAction = async (req, res) => {
         'assigned_id',
         'user_id',
         'lead_id',
+        'isArrival',
       ],
       include: [
         {
@@ -156,6 +159,7 @@ const getUserAction = async (req, res) => {
         'isOpen',
         'assigned_id',
         'user_id',
+        'isArrival',
         'lead_id',
       ],
       include: [

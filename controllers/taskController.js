@@ -46,7 +46,6 @@ const editTask = async (req, res) => {
       tasklist: req.body.tasklist,
       assigned_id: req.body.assigned_id,
       description: req.body.description,
-      user_id: req.userId,
       deadline: req.body.deadline,
       isOpen: true,
     };

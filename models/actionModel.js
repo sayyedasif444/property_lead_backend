@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(1000),
       allowNull: false,
     },
+    isArrival: {
+      type: DataTypes.BOOLEAN,
+    },
     i_date: {
       type: DataTypes.STRING,
       allowNull: false,
