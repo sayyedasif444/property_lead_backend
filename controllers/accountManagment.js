@@ -3,6 +3,8 @@ const db = require('../models');
 const Project = db.projects;
 const Payment = db.payments;
 const ProjectExpense = db.projectExpensess;
+const CustomerExpense = db.customerExpenses;
+const CustomerRepayment = db.customerRepayments;
 const Investor = db.investors;
 const User = db.users;
 const Commission = db.commissions;
@@ -31,6 +33,7 @@ const addProject = async (req, res) => {
       date_of_agreement: req.body.date_of_agreement,
       date_of_end_agreement: req.body.date_of_end_agreement,
       user_id: req.userId,
+      broker: req.body.broker,
     };
     if (
       info.land_owner === null ||
@@ -79,6 +82,7 @@ const editProject = async (req, res) => {
       duration: req.body.duration,
       date_of_agreement: req.body.date_of_agreement,
       date_of_end_agreement: req.body.date_of_end_agreement,
+      broker: req.body.broker,
     };
     if (
       info.land_owner === null ||
@@ -422,6 +426,202 @@ const deleteProjectExpense = async (req, res) => {
   }
 };
 
+const addCustomerExpense = async (req, res) => {
+  try {
+    let info = {
+      particular: req.body.particular,
+      date_of_expense: req.body.date_of_expense,
+      mode: req.body.mode,
+      amount: req.body.amount,
+      customer_id: req.body.customer_id,
+      user_id: req.userId,
+    };
+    if (
+      info.payment_type === null ||
+      info.mode === null ||
+      info.amount === null ||
+      info.date_of_expense === null
+    ) {
+      res.status(200).json({
+        statuscode: 400,
+        message: 'Invalid request!',
+      });
+    } else {
+      const projectexp = await CustomerExpense.create(info);
+      res.status(200).json({
+        statuscode: 200,
+        message: 'Customer Expense Added Successfully!',
+        data: projectexp.id,
+      });
+    }
+  } catch (e) {
+    res.status(200).json({
+      statuscode: 500,
+      message: 'Something went wrong, please try again.',
+    });
+  }
+};
+
+const editCustomerExpense = async (req, res) => {
+  try {
+    let id = req.body.id;
+    let info = {
+      particular: req.body.particular,
+      date_of_expense: req.body.date_of_expense,
+      mode: req.body.mode,
+      amount: req.body.amount,
+      customer_id: req.body.customer_id,
+    };
+    if (
+      info.payment_type === null ||
+      info.mode === null ||
+      info.amount === null ||
+      info.date_of_expense === null
+    ) {
+      res.status(200).json({
+        statuscode: 400,
+        message: 'Invalid request!',
+      });
+    } else {
+      let projectexp = await CustomerExpense.findOne({ where: { id: id } });
+      if (projectexp === null) {
+        res.status(200).json({
+          statuscode: 400,
+          message: 'Invalid request!',
+        });
+      } else {
+        await CustomerExpense.update(info, { where: { id: id } });
+        res.status(200).json({
+          statuscode: 200,
+          message: 'Customer Expense updated Successfully!',
+          data: id,
+        });
+      }
+    }
+  } catch (e) {
+    res.status(200).json({
+      statuscode: 500,
+      message: 'Something went wrong, please try again.',
+    });
+  }
+};
+
+const deleteCustomerExpense = async (req, res) => {
+  try {
+    let id = req.body.id;
+    let count = await CustomerExpense.destroy({ where: { id: id } });
+    res.status(200).json({
+      statuscode: 200,
+      message: 'Customer Expense Deleted Successfully.',
+      data: count,
+    });
+  } catch (e) {
+    console.log('Error', e);
+    res.status(200).json({
+      statuscode: 500,
+      message: 'Something went wrong, please try again.',
+    });
+  }
+};
+
+const addCustomerRepayments = async (req, res) => {
+  try {
+    let info = {
+      particular: req.body.particular,
+      date_of_expense: req.body.date_of_expense,
+      mode: req.body.mode,
+      amount: req.body.amount,
+      customer_id: req.body.customer_id,
+      user_id: req.userId,
+    };
+    if (
+      info.payment_type === null ||
+      info.mode === null ||
+      info.amount === null ||
+      info.date_of_expense === null
+    ) {
+      res.status(200).json({
+        statuscode: 400,
+        message: 'Invalid request!',
+      });
+    } else {
+      const projectexp = await CustomerRepayment.create(info);
+      res.status(200).json({
+        statuscode: 200,
+        message: 'Customer Expense Added Successfully!',
+        data: projectexp.id,
+      });
+    }
+  } catch (e) {
+    res.status(200).json({
+      statuscode: 500,
+      message: 'Something went wrong, please try again.',
+    });
+  }
+};
+
+const editCustomerRepayments = async (req, res) => {
+  try {
+    let id = req.body.id;
+    let info = {
+      particular: req.body.particular,
+      date_of_expense: req.body.date_of_expense,
+      mode: req.body.mode,
+      amount: req.body.amount,
+      customer_id: req.body.customer_id,
+    };
+    if (
+      info.payment_type === null ||
+      info.mode === null ||
+      info.amount === null ||
+      info.date_of_expense === null
+    ) {
+      res.status(200).json({
+        statuscode: 400,
+        message: 'Invalid request!',
+      });
+    } else {
+      let projectexp = await CustomerRepayment.findOne({ where: { id: id } });
+      if (projectexp === null) {
+        res.status(200).json({
+          statuscode: 400,
+          message: 'Invalid request!',
+        });
+      } else {
+        await CustomerRepayment.update(info, { where: { id: id } });
+        res.status(200).json({
+          statuscode: 200,
+          message: 'Project Expense updated Successfully!',
+          data: id,
+        });
+      }
+    }
+  } catch (e) {
+    res.status(200).json({
+      statuscode: 500,
+      message: 'Something went wrong, please try again.',
+    });
+  }
+};
+
+const deleteCustomerRepayments = async (req, res) => {
+  try {
+    let id = req.body.id;
+    let count = await CustomerRepayment.destroy({ where: { id: id } });
+    res.status(200).json({
+      statuscode: 200,
+      message: 'Customer Expense Deleted Successfully.',
+      data: count,
+    });
+  } catch (e) {
+    console.log('Error', e);
+    res.status(200).json({
+      statuscode: 500,
+      message: 'Something went wrong, please try again.',
+    });
+  }
+};
+
 const addInvestor = async (req, res) => {
   try {
     let info = {
@@ -738,6 +938,41 @@ const editCustomer = async (req, res) => {
   }
 };
 
+const editCustomerStatus = async (req, res) => {
+  try {
+    let id = req.body.id;
+    let info = {
+      isActive: req.body.isActive,
+    };
+    if (info.isActive === null) {
+      res.status(200).json({
+        statuscode: 400,
+        message: 'Invalid request!',
+      });
+    } else {
+      let customer = await Customer.findOne({ where: { id: id } });
+      if (customer === null) {
+        res.status(200).json({
+          statuscode: 400,
+          message: 'Invalid request!',
+        });
+      } else {
+        await Customer.update(info, { where: { id: id } });
+        res.status(200).json({
+          statuscode: 200,
+          message: 'Customer updated Successfully!',
+          data: id,
+        });
+      }
+    }
+  } catch (e) {
+    res.status(200).json({
+      statuscode: 500,
+      message: 'Something went wrong, please try again.',
+    });
+  }
+};
+
 const deleteCustomer = async (req, res) => {
   try {
     let id = req.body.id;
@@ -773,6 +1008,16 @@ const getAllCustomer = async (req, res) => {
     User.hasMany(Commission, { foreignKey: 'user_id' });
     Commission.belongsTo(User, { foreignKey: 'user_id' });
 
+    Customer.hasMany(CustomerExpense, { foreignKey: 'customer_id' });
+    CustomerExpense.belongsTo(Customer, { foreignKey: 'customer_id' });
+    User.hasMany(CustomerExpense, { foreignKey: 'user_id' });
+    CustomerExpense.belongsTo(User, { foreignKey: 'user_id' });
+
+    Customer.hasMany(CustomerRepayment, { foreignKey: 'customer_id' });
+    CustomerRepayment.belongsTo(Customer, { foreignKey: 'customer_id' });
+    User.hasMany(CustomerRepayment, { foreignKey: 'user_id' });
+    CustomerRepayment.belongsTo(User, { foreignKey: 'user_id' });
+
     let customer = await Customer.findAll({
       include: [
         {
@@ -797,6 +1042,24 @@ const getAllCustomer = async (req, res) => {
             },
           ],
         },
+        {
+          model: CustomerExpense,
+          include: [
+            {
+              model: User,
+              attributes: ['id', 'first_name', 'last_name'],
+            },
+          ],
+        },
+        {
+          model: CustomerRepayment,
+          include: [
+            {
+              model: User,
+              attributes: ['id', 'first_name', 'last_name'],
+            },
+          ],
+        },
       ],
       order: [['id', 'DESC']],
     });
@@ -808,7 +1071,7 @@ const getAllCustomer = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: e,
     });
   }
 };
@@ -821,6 +1084,7 @@ const addExpense = async (req, res) => {
       mode: req.body.mode,
       amount: req.body.amount,
       category_id: req.body.category_id,
+      type: req.body.type,
       user_id: req.userId,
     };
     if (
@@ -858,6 +1122,7 @@ const editExpense = async (req, res) => {
       date_of_expense: req.body.date_of_expense,
       mode: req.body.mode,
       amount: req.body.amount,
+      type: req.body.type,
       category_id: req.body.category_id,
     };
     if (
@@ -997,6 +1262,8 @@ const addTransaction = async (req, res) => {
       debit: req.body.debit,
       user_id: req.UserId,
       name: req.body.name,
+      date_last: req.body.date_last,
+      last_payment: req.body.last_payment,
     };
     if (info.particular === null || info.date === null) {
       res.status(200).json({
@@ -1028,6 +1295,8 @@ const editTransaction = async (req, res) => {
       credit: req.body.credit,
       debit: req.body.debit,
       name: req.body.name,
+      date_last: req.body.date_last,
+      last_payment: req.body.last_payment,
     };
     if (info.particular === null || info.date === null) {
       res.status(200).json({
@@ -1103,6 +1372,12 @@ const getAllTransaction = async (req, res) => {
 };
 
 module.exports = {
+  addCustomerExpense,
+  editCustomerExpense,
+  deleteCustomerExpense,
+  addCustomerRepayments,
+  editCustomerRepayments,
+  deleteCustomerRepayments,
   addProject,
   editProject,
   deleteProject,
@@ -1132,5 +1407,6 @@ module.exports = {
   addTransaction,
   deleteTransaction,
   getAllTransaction,
-  editTransaction
+  editTransaction,
+  editCustomerStatus,
 };

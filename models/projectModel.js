@@ -51,6 +51,9 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
     },
+    broker: {
+      type: DataTypes.STRING,
+    },
   });
   return projectmanage;
 };

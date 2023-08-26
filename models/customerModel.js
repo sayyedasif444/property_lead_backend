@@ -57,6 +57,9 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
     },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+    },
   });
   return customer;
 };

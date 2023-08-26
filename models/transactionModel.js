@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     date: {
       type: DataTypes.STRING,
     },
+    date_last: {
+      type: DataTypes.STRING,
+    },
+    last_payment: {
+      type: DataTypes.STRING,
+    },
     user_id: {
       type: DataTypes.INTEGER,
     },

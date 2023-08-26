@@ -43,6 +43,8 @@ db.expenses = require('./expenseModel')(sequelize, DataTypes);
 db.investors = require('./investorModel')(sequelize, DataTypes);
 db.payments = require('./paymentModel')(sequelize, DataTypes);
 db.projectExpensess = require('./projectExpenses')(sequelize, DataTypes);
+db.customerExpenses = require('./customerExpenses')(sequelize, DataTypes);
+db.customerRepayments = require('./customerRepayments')(sequelize, DataTypes);
 db.projects = require('./projectModel')(sequelize, DataTypes);
 db.transactions = require('./transactionModel')(sequelize, DataTypes);
 

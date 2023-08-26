@@ -24,6 +24,38 @@ router.post(
   accountManagement.deleteProjectExpense
 );
 
+router.post(
+  '/add-customer-expense',
+  auth,
+  accountManagement.addCustomerExpense
+);
+router.post(
+  '/edit-customer-expense',
+  auth,
+  accountManagement.editCustomerExpense
+);
+router.post(
+  '/delete-customer-expense',
+  auth,
+  accountManagement.deleteCustomerExpense
+);
+
+router.post(
+  '/add-customer-repayment',
+  auth,
+  accountManagement.addCustomerRepayments
+);
+router.post(
+  '/edit-customer-repayment',
+  auth,
+  accountManagement.editCustomerRepayments
+);
+router.post(
+  '/delete-customer-repayment',
+  auth,
+  accountManagement.deleteCustomerRepayments
+);
+
 router.post('/add-investor', auth, accountManagement.addInvestor);
 router.post('/edit-investor', auth, accountManagement.editInvestor);
 router.post('/delete-investor', auth, accountManagement.deleteInvestor);
@@ -36,6 +68,11 @@ router.post('/add-customer', auth, accountManagement.addCustomer);
 router.post('/edit-customer', auth, accountManagement.editCustomer);
 router.post('/delete-customer', auth, accountManagement.deleteCustomer);
 router.post('/list-customer', auth, accountManagement.getAllCustomer);
+router.post(
+  '/edit-customer-status',
+  auth,
+  accountManagement.editCustomerStatus
+);
 
 router.post('/add-expense', auth, accountManagement.addExpense);
 router.post('/edit-expense', auth, accountManagement.editExpense);
