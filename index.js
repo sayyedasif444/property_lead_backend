@@ -51,5 +51,7 @@ const routeMeeting = require('./routes/meetingRoutes.js');
 app.use('/api/meeting', routeMeeting);
 const accountManagement = require('./routes/accountRoutes.js');
 app.use('/api/account', accountManagement);
+const salaryManagement = require('./routes/salaryRoutes.js');
+app.use('/api/salary', salaryManagement);
 
 app.listen(PORT, () => console.log('server started'));

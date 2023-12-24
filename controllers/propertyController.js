@@ -36,6 +36,7 @@ const addProperty = async (req, res) => {
       price_per_sqft: req.body.price_per_sqft,
       google_map_link: req.body.google_map_link,
       source_name: req.body.source_name,
+      syndicate: req.body.syndicate,
       user_id: req.userId,
       isActive: true,
     };
@@ -203,6 +204,7 @@ const updateProperty = async (req, res) => {
       expected_price: req.body.expected_price,
       price_per_sqft: req.body.price_per_sqft,
       google_map_link: req.body.google_map_link,
+      syndicate: req.body.syndicate,
       source_name: req.body.source_name,
     };
     let id = req.body.id;
@@ -378,91 +380,143 @@ const download = async (req, res) => {
     doc.text('Property Location:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
     doc.setFOnt;
-    doc.text(property.property_location, 140, lineHeight);
+    doc.text(
+      property.property_location !== null ? property.property_location : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Property Locality:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.property_locality, 140, lineHeight);
+    doc.text(
+      property.property_locality !== null ? property.property_locality : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Property Area:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.property_area, 140, lineHeight);
+    doc.text(
+      property.property_area !== null ? property.property_area : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Property Front:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.property_front, 140, lineHeight);
+    doc.text(
+      property.property_front !== null ? property.property_front : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Property Deep:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.property_deep, 140, lineHeight);
+    doc.text(
+      property.property_deep !== null ? property.property_deep : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Plot Face:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.plot_face, 140, lineHeight);
+    doc.text(
+      property.plot_face !== null ? property.plot_face : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Corner Plot:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.corner_plot, 140, lineHeight);
+    doc.text(
+      property.corner_plot !== null ? property.corner_plot : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('No Of Open Sides:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.no_of_open_sides, 140, lineHeight);
+    doc.text(
+      property.no_of_open_sides !== null ? property.no_of_open_sides : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Plot Boundaries:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.plot_boundaries, 140, lineHeight);
+    doc.text(
+      property.plot_boundaries !== null ? property.plot_boundaries : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Facing Road Width:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.facing_road_width, 140, lineHeight);
+    doc.text(
+      property.facing_road_width !== null ? property.facing_road_width : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Plot Land Mark:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.plot_land_mark, 140, lineHeight);
+    doc.text(
+      property.plot_land_mark !== null ? property.plot_land_mark : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('Near By:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.near_by, 140, lineHeight);
+    doc.text(
+      property.near_by !== null ? property.near_by : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     lineHeight += doc.getLineHeight(property.property_type) + 6.5;
     doc.setFont('helvetica', 'bold');
     doc.text('ExpectedPrice:', 40, lineHeight);
     doc.setFont('helvetica', 'normal');
-    doc.text(property.expected_price, 140, lineHeight);
+    doc.text(
+      property.expected_price !== null ? property.expected_price : '',
+      140,
+      lineHeight
+    );
     doc.line(30, lineHeight + 7.5, 420, lineHeight + 7.5);
 
     property.property_media

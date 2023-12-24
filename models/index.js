@@ -47,6 +47,8 @@ db.customerExpenses = require('./customerExpenses')(sequelize, DataTypes);
 db.customerRepayments = require('./customerRepayments')(sequelize, DataTypes);
 db.projects = require('./projectModel')(sequelize, DataTypes);
 db.transactions = require('./transactionModel')(sequelize, DataTypes);
+db.salarys = require('./salaryModel')(sequelize, DataTypes);
+db.salaryAddons = require('./salaryAddonsModel')(sequelize, DataTypes);
 
 db.sequelize
   .sync({ force: false })

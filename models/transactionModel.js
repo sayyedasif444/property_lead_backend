@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     debit: {
       type: DataTypes.TEXT,
     },
+    expected_amount: {
+      type: DataTypes.STRING,
+    },
     date: {
       type: DataTypes.STRING,
     },

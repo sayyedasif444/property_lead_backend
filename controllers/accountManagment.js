@@ -1264,6 +1264,7 @@ const addTransaction = async (req, res) => {
       name: req.body.name,
       date_last: req.body.date_last,
       last_payment: req.body.last_payment,
+      expected_amount: req.body.expected_amount,
     };
     if (info.particular === null || info.date === null) {
       res.status(200).json({
@@ -1297,6 +1298,7 @@ const editTransaction = async (req, res) => {
       name: req.body.name,
       date_last: req.body.date_last,
       last_payment: req.body.last_payment,
+      expected_amount: req.body.expected_amount,
     };
     if (info.particular === null || info.date === null) {
       res.status(200).json({

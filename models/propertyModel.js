@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
     property_type: {
       type: DataTypes.STRING,
     },
+    syndicate: {
+      type: DataTypes.STRING,
+    },
     property_location: {
       type: DataTypes.STRING,
     },
