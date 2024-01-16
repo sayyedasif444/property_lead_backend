@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const action = sequelize.define('salary', {
+  const action = sequelize.define("salary", {
     user_id: {
       type: DataTypes.INTEGER,
     },
@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(1000),
     },
     isActive: {
+      type: DataTypes.BOOLEAN,
+    },
+    isValid: {
       type: DataTypes.BOOLEAN,
     },
     start_date: {

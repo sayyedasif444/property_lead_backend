@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require("../models");
 
 const Project = db.projects;
 const Payment = db.payments;
@@ -44,20 +44,20 @@ const addProject = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const project = await Project.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Project Added Successfully!',
+        message: "Project Added Successfully!",
         data: project.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -93,20 +93,20 @@ const editProject = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let project = await Project.findOne({ where: { id: id } });
       if (project === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Project.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Project updated Successfully!',
+          message: "Project updated Successfully!",
           data: id,
         });
       }
@@ -114,7 +114,7 @@ const editProject = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -129,55 +129,55 @@ const deleteProject = async (req, res) => {
     await Commission.destroy({ where: { project_id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Project Deleted Successfully.',
+      message: "Project Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
 
 const getAllProjects = async (req, res) => {
   try {
-    User.hasMany(Project, { foreignKey: 'user_id' });
-    Project.belongsTo(User, { foreignKey: 'user_id' });
+    User.hasMany(Project, { foreignKey: "user_id" });
+    Project.belongsTo(User, { foreignKey: "user_id" });
 
-    Project.hasMany(Payment, { foreignKey: 'project_id' });
-    Payment.belongsTo(Project, { foreignKey: 'project_id' });
-    User.hasMany(Payment, { foreignKey: 'user_id' });
-    Payment.belongsTo(User, { foreignKey: 'user_id' });
+    Project.hasMany(Payment, { foreignKey: "project_id" });
+    Payment.belongsTo(Project, { foreignKey: "project_id" });
+    User.hasMany(Payment, { foreignKey: "user_id" });
+    Payment.belongsTo(User, { foreignKey: "user_id" });
 
-    Project.hasMany(ProjectExpense, { foreignKey: 'project_id' });
-    ProjectExpense.belongsTo(Project, { foreignKey: 'project_id' });
-    User.hasMany(ProjectExpense, { foreignKey: 'user_id' });
-    ProjectExpense.belongsTo(User, { foreignKey: 'user_id' });
+    Project.hasMany(ProjectExpense, { foreignKey: "project_id" });
+    ProjectExpense.belongsTo(Project, { foreignKey: "project_id" });
+    User.hasMany(ProjectExpense, { foreignKey: "user_id" });
+    ProjectExpense.belongsTo(User, { foreignKey: "user_id" });
 
-    Project.hasMany(Investor, { foreignKey: 'project_id' });
-    Investor.belongsTo(Project, { foreignKey: 'project_id' });
-    User.hasMany(Investor, { foreignKey: 'user_id' });
-    Investor.belongsTo(User, { foreignKey: 'user_id' });
+    Project.hasMany(Investor, { foreignKey: "project_id" });
+    Investor.belongsTo(Project, { foreignKey: "project_id" });
+    User.hasMany(Investor, { foreignKey: "user_id" });
+    Investor.belongsTo(User, { foreignKey: "user_id" });
 
-    Project.hasMany(Commission, { foreignKey: 'project_id' });
-    Commission.belongsTo(Project, { foreignKey: 'project_id' });
-    User.hasMany(Commission, { foreignKey: 'user_id' });
-    Commission.belongsTo(User, { foreignKey: 'user_id' });
+    Project.hasMany(Commission, { foreignKey: "project_id" });
+    Commission.belongsTo(Project, { foreignKey: "project_id" });
+    User.hasMany(Commission, { foreignKey: "user_id" });
+    Commission.belongsTo(User, { foreignKey: "user_id" });
 
     let project = await Project.findAll({
       include: [
         {
           model: User,
-          attributes: ['id', 'first_name', 'last_name'],
+          attributes: ["id", "first_name", "last_name"],
         },
         {
           model: Commission,
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
@@ -186,7 +186,7 @@ const getAllProjects = async (req, res) => {
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
@@ -195,7 +195,7 @@ const getAllProjects = async (req, res) => {
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
@@ -204,22 +204,22 @@ const getAllProjects = async (req, res) => {
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
       ],
-      order: [['id', 'DESC']],
+      order: [["id", "DESC"]],
     });
     res.status(200).json({
       statuscode: 200,
-      message: 'Project Listed Successfully.',
+      message: "Project Listed Successfully.",
       data: project,
     });
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -245,20 +245,20 @@ const addPayment = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const payment = await Payment.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Payment Added Successfully!',
+        message: "Payment Added Successfully!",
         data: payment.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -284,20 +284,20 @@ const editPayment = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let payment = await Payment.findOne({ where: { id: id } });
       if (payment === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Payment.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Payment updated Successfully!',
+          message: "Payment updated Successfully!",
           data: id,
         });
       }
@@ -305,7 +305,7 @@ const editPayment = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -316,14 +316,14 @@ const deletePayment = async (req, res) => {
     let count = await Payment.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Payment Deleted Successfully.',
+      message: "Payment Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -346,20 +346,20 @@ const addProjectExpense = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const projectexp = await ProjectExpense.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Project Expense Added Successfully!',
+        message: "Project Expense Added Successfully!",
         data: projectexp.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -382,20 +382,20 @@ const editProjectExpense = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let projectexp = await ProjectExpense.findOne({ where: { id: id } });
       if (projectexp === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await ProjectExpense.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Project Expense updated Successfully!',
+          message: "Project Expense updated Successfully!",
           data: id,
         });
       }
@@ -403,7 +403,7 @@ const editProjectExpense = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -414,14 +414,14 @@ const deleteProjectExpense = async (req, res) => {
     let count = await ProjectExpense.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Project Expense Deleted Successfully.',
+      message: "Project Expense Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -444,20 +444,20 @@ const addCustomerExpense = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const projectexp = await CustomerExpense.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Customer Expense Added Successfully!',
+        message: "Customer Expense Added Successfully!",
         data: projectexp.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -480,20 +480,20 @@ const editCustomerExpense = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let projectexp = await CustomerExpense.findOne({ where: { id: id } });
       if (projectexp === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await CustomerExpense.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Customer Expense updated Successfully!',
+          message: "Customer Expense updated Successfully!",
           data: id,
         });
       }
@@ -501,7 +501,7 @@ const editCustomerExpense = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -512,14 +512,14 @@ const deleteCustomerExpense = async (req, res) => {
     let count = await CustomerExpense.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Customer Expense Deleted Successfully.',
+      message: "Customer Expense Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -542,20 +542,20 @@ const addCustomerRepayments = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const projectexp = await CustomerRepayment.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Customer Expense Added Successfully!',
+        message: "Customer Expense Added Successfully!",
         data: projectexp.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -578,20 +578,20 @@ const editCustomerRepayments = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let projectexp = await CustomerRepayment.findOne({ where: { id: id } });
       if (projectexp === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await CustomerRepayment.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Project Expense updated Successfully!',
+          message: "Project Expense updated Successfully!",
           data: id,
         });
       }
@@ -599,7 +599,7 @@ const editCustomerRepayments = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -610,14 +610,14 @@ const deleteCustomerRepayments = async (req, res) => {
     let count = await CustomerRepayment.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Customer Expense Deleted Successfully.',
+      message: "Customer Expense Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -643,20 +643,20 @@ const addInvestor = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const investor = await Investor.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Investor Added Successfully!',
+        message: "Investor Added Successfully!",
         data: investor.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -682,20 +682,20 @@ const editInvestor = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let investor = await Investor.findOne({ where: { id: id } });
       if (investor === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Investor.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Investor updated Successfully!',
+          message: "Investor updated Successfully!",
           data: id,
         });
       }
@@ -703,7 +703,7 @@ const editInvestor = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -714,14 +714,14 @@ const deleteInvestor = async (req, res) => {
     let count = await Investor.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Investor Deleted Successfully.',
+      message: "Investor Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -747,20 +747,20 @@ const addCommission = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const commission = await Commission.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Commission Added Successfully!',
+        message: "Commission Added Successfully!",
         data: commission.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -786,20 +786,20 @@ const editCommission = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let commission = await Commission.findOne({ where: { id: id } });
       if (commission === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Commission.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Commission updated Successfully!',
+          message: "Commission updated Successfully!",
           data: id,
         });
       }
@@ -807,7 +807,7 @@ const editCommission = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -818,14 +818,14 @@ const deleteCommission = async (req, res) => {
     let count = await Commission.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Commission Deleted Successfully.',
+      message: "Commission Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -862,20 +862,20 @@ const addCustomer = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const customer = await Customer.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Customer Added Successfully!',
+        message: "Customer Added Successfully!",
         data: customer.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -912,20 +912,20 @@ const editCustomer = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let customer = await Customer.findOne({ where: { id: id } });
       if (customer === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Customer.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Customer updated Successfully!',
+          message: "Customer updated Successfully!",
           data: id,
         });
       }
@@ -933,7 +933,7 @@ const editCustomer = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -947,20 +947,20 @@ const editCustomerStatus = async (req, res) => {
     if (info.isActive === null) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let customer = await Customer.findOne({ where: { id: id } });
       if (customer === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Customer.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Customer updated Successfully!',
+          message: "Customer updated Successfully!",
           data: id,
         });
       }
@@ -968,7 +968,7 @@ const editCustomerStatus = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -981,55 +981,55 @@ const deleteCustomer = async (req, res) => {
     await Commission.destroy({ where: { customer_id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Customer Deleted Successfully.',
+      message: "Customer Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
 
 const getAllCustomer = async (req, res) => {
   try {
-    User.hasMany(Customer, { foreignKey: 'user_id' });
-    Customer.belongsTo(User, { foreignKey: 'user_id' });
+    User.hasMany(Customer, { foreignKey: "user_id" });
+    Customer.belongsTo(User, { foreignKey: "user_id" });
 
-    Customer.hasMany(Payment, { foreignKey: 'customer_id' });
-    Payment.belongsTo(Customer, { foreignKey: 'customer_id' });
-    User.hasMany(Payment, { foreignKey: 'user_id' });
-    Payment.belongsTo(User, { foreignKey: 'user_id' });
+    Customer.hasMany(Payment, { foreignKey: "customer_id" });
+    Payment.belongsTo(Customer, { foreignKey: "customer_id" });
+    User.hasMany(Payment, { foreignKey: "user_id" });
+    Payment.belongsTo(User, { foreignKey: "user_id" });
 
-    Customer.hasMany(Commission, { foreignKey: 'customer_id' });
-    Commission.belongsTo(Customer, { foreignKey: 'customer_id' });
-    User.hasMany(Commission, { foreignKey: 'user_id' });
-    Commission.belongsTo(User, { foreignKey: 'user_id' });
+    Customer.hasMany(Commission, { foreignKey: "customer_id" });
+    Commission.belongsTo(Customer, { foreignKey: "customer_id" });
+    User.hasMany(Commission, { foreignKey: "user_id" });
+    Commission.belongsTo(User, { foreignKey: "user_id" });
 
-    Customer.hasMany(CustomerExpense, { foreignKey: 'customer_id' });
-    CustomerExpense.belongsTo(Customer, { foreignKey: 'customer_id' });
-    User.hasMany(CustomerExpense, { foreignKey: 'user_id' });
-    CustomerExpense.belongsTo(User, { foreignKey: 'user_id' });
+    Customer.hasMany(CustomerExpense, { foreignKey: "customer_id" });
+    CustomerExpense.belongsTo(Customer, { foreignKey: "customer_id" });
+    User.hasMany(CustomerExpense, { foreignKey: "user_id" });
+    CustomerExpense.belongsTo(User, { foreignKey: "user_id" });
 
-    Customer.hasMany(CustomerRepayment, { foreignKey: 'customer_id' });
-    CustomerRepayment.belongsTo(Customer, { foreignKey: 'customer_id' });
-    User.hasMany(CustomerRepayment, { foreignKey: 'user_id' });
-    CustomerRepayment.belongsTo(User, { foreignKey: 'user_id' });
+    Customer.hasMany(CustomerRepayment, { foreignKey: "customer_id" });
+    CustomerRepayment.belongsTo(Customer, { foreignKey: "customer_id" });
+    User.hasMany(CustomerRepayment, { foreignKey: "user_id" });
+    CustomerRepayment.belongsTo(User, { foreignKey: "user_id" });
 
     let customer = await Customer.findAll({
       include: [
         {
           model: User,
-          attributes: ['id', 'first_name', 'last_name'],
+          attributes: ["id", "first_name", "last_name"],
         },
         {
           model: Commission,
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
@@ -1038,7 +1038,7 @@ const getAllCustomer = async (req, res) => {
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
@@ -1047,7 +1047,7 @@ const getAllCustomer = async (req, res) => {
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
@@ -1056,16 +1056,16 @@ const getAllCustomer = async (req, res) => {
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'last_name'],
+              attributes: ["id", "first_name", "last_name"],
             },
           ],
         },
       ],
-      order: [['id', 'DESC']],
+      order: [["id", "DESC"]],
     });
     res.status(200).json({
       statuscode: 200,
-      message: 'Customer Listed Successfully.',
+      message: "Customer Listed Successfully.",
       data: customer,
     });
   } catch (e) {
@@ -1096,20 +1096,20 @@ const addExpense = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const expense = await Expense.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Expense Added Successfully!',
+        message: "Expense Added Successfully!",
         data: expense.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1134,20 +1134,20 @@ const editExpense = async (req, res) => {
     ) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let expense = await Expense.findOne({ where: { id: id } });
       if (expense === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Expense.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Expense updated Successfully!',
+          message: "Expense updated Successfully!",
           data: id,
         });
       }
@@ -1155,7 +1155,7 @@ const editExpense = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1166,47 +1166,47 @@ const deleteExpense = async (req, res) => {
     let count = await Expense.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Expense Deleted Successfully.',
+      message: "Expense Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
 
 const getAllExpense = async (req, res) => {
   try {
-    ExpenseCategory.hasOne(Expense, { foreignKey: 'category_id' });
-    Expense.belongsTo(ExpenseCategory, { foreignKey: 'category_id' });
+    ExpenseCategory.hasOne(Expense, { foreignKey: "category_id" });
+    Expense.belongsTo(ExpenseCategory, { foreignKey: "category_id" });
 
-    User.hasMany(Expense, { foreignKey: 'user_id' });
-    Expense.belongsTo(User, { foreignKey: 'user_id' });
+    User.hasMany(Expense, { foreignKey: "user_id" });
+    Expense.belongsTo(User, { foreignKey: "user_id" });
 
     let expense = await Expense.findAll({
       include: [
         {
           model: User,
-          attributes: ['id', 'first_name', 'last_name'],
+          attributes: ["id", "first_name", "last_name"],
         },
         {
           model: ExpenseCategory,
         },
       ],
-      order: [['id', 'DESC']],
+      order: [["id", "DESC"]],
     });
     res.status(200).json({
       statuscode: 200,
-      message: 'Expense Listed Successfully.',
+      message: "Expense Listed Successfully.",
       data: expense,
     });
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1219,20 +1219,65 @@ const addExpenseCategory = async (req, res) => {
     if (info.category === null) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const expense = await ExpenseCategory.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Expense Category Added Successfully!',
+        message: "Expense Category Added Successfully!",
         data: expense.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
+    });
+  }
+};
+
+const deleteExpenseCategory = async (req, res) => {
+  try {
+    let id = req.body.id;
+    let count = await ExpenseCategory.destroy({ where: { id: id } });
+    res.status(200).json({
+      statuscode: 200,
+      message: "Expense Category Deleted Successfully.",
+      data: count,
+    });
+  } catch (e) {
+    console.log("Error", e);
+    res.status(200).json({
+      statuscode: 500,
+      message: "Something went wrong, please try again.",
+    });
+  }
+};
+
+const editExpenseCategory = async (req, res) => {
+  try {
+    let id = req.body.id;
+    let info = {
+      category: req.body.category,
+    };
+    if (info.category === null || id === null) {
+      res.status(200).json({
+        statuscode: 400,
+        message: "Invalid request!",
+      });
+    } else {
+      const expense = await ExpenseCategory.update(info, { where: { id: id } });
+      res.status(200).json({
+        statuscode: 200,
+        message: "Expense Category Added Successfully!",
+        data: expense.id,
+      });
+    }
+  } catch (e) {
+    res.status(200).json({
+      statuscode: 500,
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1242,13 +1287,13 @@ const getAllExpenseCategory = async (req, res) => {
     let expense = await ExpenseCategory.findAll({});
     res.status(200).json({
       statuscode: 200,
-      message: 'Expense Category Listed Successfully.',
+      message: "Expense Category Listed Successfully.",
       data: expense,
     });
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1269,20 +1314,20 @@ const addTransaction = async (req, res) => {
     if (info.particular === null || info.date === null) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       const expense = await Transaction.create(info);
       res.status(200).json({
         statuscode: 200,
-        message: 'Transaction Added Successfully!',
+        message: "Transaction Added Successfully!",
         data: expense.id,
       });
     }
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1303,20 +1348,20 @@ const editTransaction = async (req, res) => {
     if (info.particular === null || info.date === null) {
       res.status(200).json({
         statuscode: 400,
-        message: 'Invalid request!',
+        message: "Invalid request!",
       });
     } else {
       let expense = await Transaction.findOne({ where: { id: id } });
       if (expense === null) {
         res.status(200).json({
           statuscode: 400,
-          message: 'Invalid request!',
+          message: "Invalid request!",
         });
       } else {
         await Transaction.update(info, { where: { id: id } });
         res.status(200).json({
           statuscode: 200,
-          message: 'Transaction updated Successfully!',
+          message: "Transaction updated Successfully!",
           data: id,
         });
       }
@@ -1324,7 +1369,7 @@ const editTransaction = async (req, res) => {
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1335,40 +1380,40 @@ const deleteTransaction = async (req, res) => {
     let count = await Transaction.destroy({ where: { id: id } });
     res.status(200).json({
       statuscode: 200,
-      message: 'Transaction Deleted Successfully.',
+      message: "Transaction Deleted Successfully.",
       data: count,
     });
   } catch (e) {
-    console.log('Error', e);
+    console.log("Error", e);
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
 
 const getAllTransaction = async (req, res) => {
   try {
-    User.hasMany(Transaction, { foreignKey: 'user_id' });
-    Transaction.belongsTo(User, { foreignKey: 'user_id' });
+    User.hasMany(Transaction, { foreignKey: "user_id" });
+    Transaction.belongsTo(User, { foreignKey: "user_id" });
     let expense = await Transaction.findAll({
       include: [
         {
           model: User,
-          attributes: ['id', 'first_name', 'last_name'],
+          attributes: ["id", "first_name", "last_name"],
         },
       ],
-      order: [['id', 'DESC']],
+      order: [["id", "DESC"]],
     });
     res.status(200).json({
       statuscode: 200,
-      message: 'Transaction Listed Successfully.',
+      message: "Transaction Listed Successfully.",
       data: expense,
     });
   } catch (e) {
     res.status(200).json({
       statuscode: 500,
-      message: 'Something went wrong, please try again.',
+      message: "Something went wrong, please try again.",
     });
   }
 };
@@ -1411,4 +1456,6 @@ module.exports = {
   getAllTransaction,
   editTransaction,
   editCustomerStatus,
+  deleteExpenseCategory,
+  editExpenseCategory,
 };
