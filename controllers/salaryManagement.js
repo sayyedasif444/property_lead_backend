@@ -13,6 +13,7 @@ const addSalary = async (req, res) => {
       start_date: req.body.start_date,
       user_id: req.body.user_id,
       isActive: true,
+      isValid: true,
     };
     if (
       info.salary === null ||
